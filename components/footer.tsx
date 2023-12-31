@@ -5,7 +5,7 @@ const Footer = () => {
                 {/* Col 1:  */}
                 <div className="col-span-2 md:col-span-1 p-4">
                     <h3 className="text-2xl text-slate-900 mb-4 font-bold">
-                        Cửa hàng điện thoại di động
+                        Tạp Hóa Thơm Trinh
                     </h3>
                     <p className="text-justify leading-7 text-slate-500">
                         Chúng tôi luôn cố gắng đem đến sự trải nghiệm tốt nhất
