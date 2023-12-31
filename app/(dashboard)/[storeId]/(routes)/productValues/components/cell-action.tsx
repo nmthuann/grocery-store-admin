@@ -15,11 +15,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { AlertModal } from "@/components/modals/alert-modal";
-
-import { ProductAttributeColumn } from "./columns";
+import { ProductValueColumn } from "./columns";
 
 interface CellActionProps {
-    data: ProductAttributeColumn;
+    data: ProductValueColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
