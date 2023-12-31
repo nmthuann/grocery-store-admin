@@ -1,0 +1,159 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+// product
+// prices
+// categorioes
+// branchs
+// suppliers
+// product_attribute
+// product_value
+// inventories
+// imports
+// imports details
+// reviews
+// orders
+// order-details
+
+model Store {
+  id         String     @id @default(uuid())
+  name       String
+  userId     String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  brands     Brand[]    @relation("StoreToBrand")
+  suppliers  Supplier[] @relation("StoreToSupplier")
+  categories Category[] @relation("StoreToCategory")
+  products   Product[]  @relation("StoreToProduct")
+}
+
+model Brand {
+  id          String    @id @default(uuid())
+  name        String
+  description String    @default("")
+  products    Product[] @relation("BrandToProduct")
+  storeId     String // Foreign Key to Store
+  store       Store     @relation("StoreToBrand", fields: [storeId], references: [id])
+
+  @@index([storeId])
+}
+
+model Supplier {
+  id         String    @id @default(uuid())
+  name       String
+  avatar_url String
+  address    String
+  contact    String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  products   Product[] @relation("SupplierToProduct")
+  storeId    String // Foreign Key to Store
+  store      Store     @relation("StoreToSupplier", fields: [storeId], references: [id])
+
+  @@index([storeId])
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  productId String // Foreign Key to Product
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String // URL of the image
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([productId])
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String
+  left        Int
+  right       Int
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Liên kết với các sản phẩm
+  products Product[] @relation("ProductToCategory")
+  storeId  String // Foreign Key to Store
+  store    Store     @relation("StoreToCategory", fields: [storeId], references: [id])
+
+  @@index([storeId])
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  barcode     String   @unique
+  name        String   @unique
+  status      Boolean  @default(true) //true
+  quantity    Int      @default(10)
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  unit        String
+
+  supplierId String
+  supplier   Supplier @relation("SupplierToProduct", fields: [supplierId], references: [id])
+
+  brandId String
+  brand   Brand  @relation("BrandToProduct", fields: [brandId], references: [id])
+
+  storeId String // Foreign Key to Store
+  store   Store  @relation("StoreToProduct", fields: [storeId], references: [id])
+
+  categoryId Int // Foreign Key to Category
+  category   Category @relation("ProductToCategory", fields: [categoryId], references: [id])
+
+  images       Image[] // Relation to Image model
+  ProductValue ProductValue[]
+  prices       Price[]
+
+  @@index([storeId])
+  @@index([supplierId])
+  @@index([brandId])
+  @@index([categoryId])
+}
+
+model ProductAttribute {
+  id        Int            @id @default(autoincrement())
+  attribute String
+  // createdAt DateTime       @default(now())
+  // updatedAt DateTime       @updatedAt
+  values    ProductValue[]
+}
+
+model ProductValue {
+  id                 Int              @id @default(autoincrement())
+  value              String
+  productAttribute   ProductAttribute @relation(fields: [productAttributeId], references: [id])
+  productAttributeId Int
+  productId          String
+  product            Product          @relation(fields: [productId], references: [id])
+
+  @@unique([productId, productAttributeId])
+  @@index([productAttributeId])
+  @@index([productId])
+}
+
+model Price {
+  id        String   @id @default(uuid())
+  productId String
+  beginDay  DateTime
+  unitPrice Decimal  @db.Decimal(8, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id])
+
+  // @@id([product_id, begin_day])
+  @@unique([productId, beginDay])
+}
