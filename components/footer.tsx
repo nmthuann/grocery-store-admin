@@ -1,9 +1,9 @@
 const Footer = () => {
     return (
         <footer className="bg-white border-t relative bottom-0 left-0 right-0">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-8 md:py-12">
-                {/* Col 1:  */}
-                <div className="col-span-2 md:col-span-1 p-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-8 md:py-12">
+                {/* Col 1 */}
+                <div className="p-4">
                     <h3 className="text-2xl text-slate-900 mb-4 font-bold">
                         Tạp Hóa Thơm Trinh
                     </h3>
@@ -13,7 +13,7 @@ const Footer = () => {
                     </p>
                 </div>
 
-                {/* Col 2:  */}
+                {/* Col 2 */}
                 <div className="p-4">
                     <h3 className="text-2xl text-slate-900 mb-4 font-bold">
                         Hỗ trợ
@@ -66,7 +66,7 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                {/* col 3: */}
+                {/* col 3 */}
                 <div className="p-4">
                     <h3 className="text-2xl text-slate-900 mb-4 font-bold">
                         Liên Hệ
@@ -88,7 +88,7 @@ const Footer = () => {
 
                             <p className="text-slate-500 ml-2">
                                 {" "}
-                                +84 123456789
+                                +84 974765301
                             </p>
                         </li>
 
@@ -123,13 +123,14 @@ const Footer = () => {
                             </svg>
                             <p className="text-slate-500 ml-2">
                                 {" "}
-                                437, DH 503, Tân Hiệp, Phú Giáo, Bình Dương
+                                437, DH 507, Tân Hiệp, Phú Giáo, Bình Dương
                             </p>
                         </li>
                     </ul>
 
                     {/* Social media */}
                     <div className="flex flex-wrap justify-start gap-2">
+                        {/* Social media buttons */}
                         <button className="bg-blue-500 p-2 font-semibold text-white inline-flex items-center space-x-2 rounded">
                             <svg
                                 className="w-5 h-5 fill-current"
@@ -190,7 +191,7 @@ const Footer = () => {
             </div>
 
             <div className="mx-auto py-10">
-                <p className="text-center text-xs text-white">
+                <p className="text-center text-xs text-black">
                     Copyright &copy; 2023 Coding Artist | All Rights Reserved
                 </p>
             </div>
