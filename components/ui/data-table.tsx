@@ -32,7 +32,7 @@ export function DataTable<TData, TValue>({
     columns,
     data,
     searchKey,
-}: DataTableProps<TData, TValue>) {
+}: Readonly<DataTableProps<TData, TValue>>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const table = useReactTable({
         data,
